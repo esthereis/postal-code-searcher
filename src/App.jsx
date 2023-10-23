@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import './styles.css';
 
-import api from './services/api';
+import { get } from './services/api';
 
 function App() {
   const [input, setInput] = useState('');
@@ -15,8 +15,9 @@ function App() {
     }
 
     try {
-      const response = await api.get(`${input}/json`);
-      setPostalCode(response.data);
+      const response = await get(input);
+      setPostalCode(response.data.results[input][0]);
+      console.log(response.data.results[input][0]);
       setInput('');
     } catch {
       alert('Failed to search adress');
@@ -44,11 +45,11 @@ function App() {
 
         {Object.keys(postalCode).length > 0 && (
           <main className='main'>
-            <h2>CEP: {postalCode.cep}</h2>
+            <h2>Zip Code: {postalCode.postal_code}</h2>
 
-            <span>{postalCode.logradouro}</span>
+            <span>Country: {postalCode.country_code}</span>
             <span>Complemento:{postalCode.complemento}</span>
-            <span>{postalCode.bairro}</span>
+            <span>City: {postalCode.city}</span>
             <span>
               {postalCode.localidade} {postalCode.uf}
             </span>
