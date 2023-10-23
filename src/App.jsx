@@ -17,7 +17,6 @@ function App() {
     try {
       const response = await get(input);
       setPostalCode(response.data.results[input][0]);
-      console.log(response.data.results[input][0]);
       setInput('');
     } catch {
       alert('Failed to search adress');
@@ -48,11 +47,7 @@ function App() {
             <h2>Zip Code: {postalCode.postal_code}</h2>
 
             <span>Country: {postalCode.country_code}</span>
-            <span>Complemento:{postalCode.complemento}</span>
             <span>City: {postalCode.city}</span>
-            <span>
-              {postalCode.localidade} {postalCode.uf}
-            </span>
           </main>
         )}
       </div>
